@@ -2,12 +2,20 @@ package Controllers;
 
 import DAOs.ParticipantDAO;
 import io.javalin.http.Handler;
+import jakarta.servlet.http.Part;
 import models.Instructor;
 import models.Participant;
 
-public class ParticipantContoller {
-    ParticipantDAO pDAO=new ParticipantDAO();
+import java.util.List;
 
+
+public class ParticipantContoller<List> {
+    ParticipantDAO pDAO=new ParticipantDAO();
+    public Handler getAllParticipant=ctx->{
+        java.util.List<Participant> participants=pDAO.getAllParticipants();
+        ctx.json(participants);
+        ctx.status(200);
+    };
     public Handler getParticipantById=(ctx->{
 
         int p_id=Integer.parseInt(ctx.pathParam("id"));
@@ -25,6 +33,14 @@ public class ParticipantContoller {
             ctx.json(participant);
             ctx.status(200);
         }
+    });
+    public Handler updateParticipant=(ctx->{
+        int parti_id=Integer.parseInt(ctx.pathParam("id"));
+        String newEmail=ctx.body();
+        Participant updatedParti=pDAO.updateParticipant(parti_id,newEmail);
+        ctx.status(200);
+        ctx.json(updatedParti);
+
     });
 
     public Handler deleteParticipant=(ctx->{

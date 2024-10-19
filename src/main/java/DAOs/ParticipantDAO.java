@@ -56,7 +56,18 @@ public class ParticipantDAO implements ParticipantDAOInterface {
 
     @Override
     public Participant updateParticipant(int participant_id, String email) {
+        try(Connection conn=ConnectionUtils.getConnection()){
+            String sql="update  participants set email= ? where participantid= ?";
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ps.setString(1,email);
+            ps.setInt(2,participant_id);
+            ps.executeUpdate();
+            Participant pr= getParticipantById(participant_id);
+            return pr;
 
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 

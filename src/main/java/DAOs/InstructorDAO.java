@@ -33,10 +33,7 @@ public class InstructorDAO implements InstructorDAOInterface{
        return null;
     }
 
-    @Override
-    public String updateInstructorEmail(String email) {
-        return "";
-    }
+
 
 
     @Override
@@ -76,5 +73,10 @@ public class InstructorDAO implements InstructorDAOInterface{
             e.printStackTrace();
         }
         return ins;
+    }
+
+    @Override
+    public String updateInstructorEmail(String email) {
+        return "";
     }
 }
